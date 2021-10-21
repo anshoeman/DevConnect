@@ -1,7 +1,14 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import {useState} from 'react'
-const Register = () => {
+//We will connect our redux with component by using something called connect
+//Whenever we use redux we need to import it
+import { connect } from 'react-redux'
+import { setAlert } from '../../../actions/alert'
+import { register } from '../../../actions/auth'
+import propTypes from 'prop-types'
+
+const Register = ({setAlert,register}) => {
     const [formData,setFormData] = useState({
         name:'',
         email:'',
@@ -14,9 +21,9 @@ const Register = () => {
     const onSubmit = async e =>{
         e.preventDefault()
         if(password!==password2){
-            console.log('Password doesnt match');
+            setAlert('Password Does not Match','danger')
         }else{
-            console.log('SUCCESS');
+            register({name,email,password});
           }
     }
     return (
@@ -32,9 +39,9 @@ const Register = () => {
           name="name" 
           value={name}
           onChange={e=>onChange(e)}
-          required />
+         />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <input type="email" placeholder="Email Address" name="email" value={email} onChange={e=>onChange(e)} />
           <small className="form-text"
             >This site uses Gravatar so if you want a profile image, use a
@@ -70,5 +77,8 @@ const Register = () => {
         </Fragment>
     )
 }
-
-export default Register
+Register.propTypes = {
+  setAlert:propTypes.func.isRequired,
+  register:propTypes.func.isRequired,
+}
+export default connect(null,{setAlert,register})(Register)

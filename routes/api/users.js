@@ -17,13 +17,13 @@ router.post(
     check("name", "Name is Required").not().isEmpty(),
     check("email", "Email is Required").isEmail(),
     check("password", "Password should be of minimum length 6").isLength({
-      min: 6,
+      min: 6, 
     }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ err: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const { name, email, avatar, password } = req.body;
     try {

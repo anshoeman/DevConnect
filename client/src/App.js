@@ -8,15 +8,16 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
 //Redux
 import { Provider } from 'react-redux' //Provider connects react and redux
 import store from './store'
+import Alert from './components/layout/Alert';
 function App() {
   return (
     <Provider store={store}>
-    <div className="App">
       <Router>
    <Fragment>
       <Navbar/>
       <Route exact path="/" component={Landing}/>
       <section className="container">
+        <Alert/>
         <Switch>
         <Route exact path="/register" component={Register}/>
         <Route exact path="/login" component={Login}/>
@@ -24,7 +25,7 @@ function App() {
         </section>
    </Fragment>
    </Router>
-    </div>
+
     </Provider>
   );
 }
