@@ -46,7 +46,7 @@ router.post(
       //the compare function just compare the plain text password with the hashed one from the database
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(404).json({ msg: "Password incorrect" });
+        return res.status(404).json({errors:[{ msg: "Password incorrect" }]});
       }
 
       const payload = {

@@ -22,9 +22,6 @@ const onSubmit = e =>{
     return (
         <div> 
             <section class="container">
-      <div class="alert alert-danger">
-        Invalid credentials 
-      </div>
       <h1 class="large text-primary">Sign In</h1>
       <p class="lead"><i class="fas fa-user"></i> Sign into Your Account</p>
       <form class="form" onSubmit={e=>onSubmit(e)}>
@@ -35,8 +32,7 @@ const onSubmit = e =>{
             name="email"
             value={email}
             onChange={e=>onChange(e)}
-            required
-          />
+          /> 
         </div>
         <div class="form-group">
           <input
