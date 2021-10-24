@@ -1,7 +1,9 @@
 import React,{Fragment, useState} from 'react'
-import PropTypes from 'prop-types'
+import { Link,withRouter } from 'react-router-dom';
+import propTypes from 'prop-types'
 import {connect} from 'react-redux';
-const CreateProfile = props => {
+import { createProfile } from '../../actions/profile';
+const CreateProfile = ({createProfile,history}) => {
     const [formData,setFormData] = useState({
     company:'',
       website:'',
@@ -12,7 +14,7 @@ const CreateProfile = props => {
       skills:'',
       youtube:'',
       facebook:'',
-      twitter:'',
+      twitter:'', 
       instagram:'',
       linkedin:''
     })
@@ -30,6 +32,10 @@ const CreateProfile = props => {
         linkedin,} = formData;
     const [displaySocialInputs,toggleSocialInputs] = useState(false);
     const onChange = e=> setFormData({...formData,[e.target.name]:e.target.value})
+    const onSubmit =e=>{
+        e.preventDefault();
+        createProfile(formData,history)
+    }
     return (
         <div>
              <section class="container">
@@ -41,13 +47,13 @@ const CreateProfile = props => {
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form">
+      <form className="form" onSubmit={e=>onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={(e)=>onChange(e)}>
             <option value="0">* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
-            <option value="Senior Developer">Senior Developer</option>
+            <option value="Senior Developer">Senior Developer</option> 
             <option value="Manager">Manager</option>
             <option value="Student or Learning">Student or Learning</option>
             <option value="Instructor">Instructor or Teacher</option>
@@ -137,8 +143,10 @@ const CreateProfile = props => {
     )
 }
 
-{/* Create-Profile.propTypes = {
+CreateProfile.propTypes = {
+createProfile:propTypes.func.isRequired,
+}
 
-} */}
 
-export default CreateProfile;
+
+export default connect(null,{createProfile})(withRouter(CreateProfile));
