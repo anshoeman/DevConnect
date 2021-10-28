@@ -5,6 +5,7 @@ import propTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { getCurrentProfile } from '../../actions/profile'
 import Spinner from '../layout/Spinner'
+import DashboardActions from './DashboardActions'
 const Dashboard = ({getCurrentProfile,auth:{user},profile:{profile,loading}}) => {
     useEffect(()=>{
         getCurrentProfile()
@@ -14,7 +15,7 @@ const Dashboard = ({getCurrentProfile,auth:{user},profile:{profile,loading}}) =>
         <p className="lead">
         <i className="fas fa-user"></i>Welcome {user && user.name}
         </p>
-        {profile!==null ? <Fragment>Profile</Fragment>:<Fragment><p>You Have Not Yet Setup a Profile,Please Add Some Info</p>
+        {profile!==null ? <Fragment><DashboardActions/></Fragment>:<Fragment><p>You Have Not Yet Setup a Profile,Please Add Some Info</p>
             <Link to='/create-profile' className="btn btn-primary my-1">
                 Create Profile</Link></Fragment>} 
     </Fragment>
