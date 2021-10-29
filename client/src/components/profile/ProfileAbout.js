@@ -7,7 +7,7 @@ const ProfileAbout = ({profile:{
     user:{name}
 }}) => {
     return (
-        <div>
+       
              <div class="profile-about bg-light p-2">
           <h2 class="text-primary">{name}'s Bio</h2>
           <p>
@@ -23,7 +23,7 @@ const ProfileAbout = ({profile:{
             ))}
           </div>
         </div>
-        </div>
+        
     )
 }
 
