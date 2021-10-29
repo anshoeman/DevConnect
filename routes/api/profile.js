@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/Profile");
 const request = require('request');
+const Post = require('../../models/Post')
 const { check, validationResult } = require("express-validator");
 const GITHUB_CLIENT_ID = "032b86ca5196b9ec622c"
 const GITHUB_CLIENT_SECRET = "bca3972cd56a5fe7a655e97699119db978843a25"
@@ -146,6 +147,8 @@ router.get("/user/:user_id", async (req, res) => {
 //@route /api/profile
 router.delete("/", auth, async (req, res) => {
   try {
+    //Remove Posts
+    await Post.deleteMany({user:req.user.id})
     //Remove the profile
     await Profile.findOneAndRemove({ user: req.user.id });
     await User.findOneAndRemove({ _id: req.user.id });
@@ -172,7 +175,7 @@ router.put(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ msg: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const { title, company, location, from, to, current, description } =
       req.body;
